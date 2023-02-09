@@ -23,13 +23,19 @@ Template 필터 : {{ 변수|옵션 }} - 템플릿 변수의 값을 특정한 형
         https://velog.io/@jewon119/Django-%EA%B8%B0%EC%B4%88-Template-Language
 
 -Templete Tag-
+
 extends : 템플릿 상속
+
 load : 빌트인 템플릿태그/필터 외에 추가 로딩
        각 장고앱의 templatetags/ 디렉토리 내, 파일명을 지정
        (django/contrib/humanize/tempaltetags/humanize.py)
+       
 include : 템플릿 가져오기, 현재의 context가 그대로 전달
           with옵션을 통해 추가 키워드 인자 전달
-only 추가옵션을 통해 지정
+          
+only : 추가옵션을 통해 지정
+
 block … endblock : 블락 영역 지정
                    템플릿 상속을 위한 영역 지정
+
 comment … endcomment : 주석 영역 지정 
