@@ -39,3 +39,11 @@ block … endblock : 블락 영역 지정
                    템플릿 상속을 위한 영역 지정
 
 comment … endcomment : 주석 영역 지정 
+
+___
+23-02-10
+ *update*
+ 1) landing page에 사진을 넣고 제목을 수정했습니다.
+ 2) blog 우측에 categories 상자를 넣어 포스팅한 글을 분류할 수 있게끔 변경하였습니다.
+ 3) About me 페이지도 수정하여 프로필을 작성하였고 navbar도 같이 추가하였습니다.
+ 
