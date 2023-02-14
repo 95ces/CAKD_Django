@@ -1,0 +1,8 @@
+DjangoCES 
+
+388971823538-iuee65gdq8c7v9qdqvdl1i1kns6jjm77.apps.googleusercontent.com
+
+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
+
+위에는 api 아이디
+아래는 pwd
