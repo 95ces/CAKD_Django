@@ -46,4 +46,116 @@ ___
  1) landing page에 사진을 넣고 제목을 수정했습니다.
  2) blog 우측에 categories 상자를 넣어 포스팅한 글을 분류할 수 있게끔 변경하였습니다.
  3) About me 페이지도 수정하여 프로필을 작성하였고 navbar도 같이 추가하였습니다.
+
+
+____
+23-02-13
+ * update *
+
+category 1vs다
+tag 다vs다 로 연결될 수 있다
+
+forms.py를 만들었습니다.
+___
+from .models import Comment
+from django import forms
+
+#클래스 만들기
+class Commentform(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)
+___
+
+navbar에 {% load socialaccount%}
+</nav> 밑에 modal 추가
+
+___
+postlist.html 수정
+    {% if user.is_authenticated%}
+        {% if user.is_superuser or user.is_staff %}
+            <a class="btn btn-info btn-sm float-right" href="/blog/create_post/" role="button"><i class="fas fa-pen"></i>&nbsp;&nbsp;New Post</a>
+        {% endif %}
+    {% endif %}
+권한이 있는 사람만 버튼누를수있게함
+
+{% else %}
+            <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
+아니면 링크에서 랜덤한 이미지를 보여준다
+
+___
+post_detail 수정
+
+___
+base_full_width.html 추가
+
+___
+post, comment form 추가 > 홈페이지에서 직접 입력을 위한 페이지
+
+___
+post_form
+{% csrf_token %} : 해킹방지툴
+
+___
+post_update_form 추가
+
+___
+urls.py url_pattern에 
+path('delete_comment/<int:pk>/', views.delete_comment),
+    path('update_comment/<int:pk>/', views.CommentUpdate.as_view()),
+    path('update_post/<int:pk>/', views.PostUpdate.as_view()),
+    path('create_post/', views.PostCreate.as_view()), 추가
+
+___
+views.py에 import redirect createview updateview
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.utils.text import slugify
+from django.shortcuts import get_object_or_404
+from .forms import CommentFrom
+from django.core.exceptions import PermissionDenied
+from django.db.models import Q
+
+
+
+필요한 class들 추가
+
+___
+settings.py installed에
+    'crispy_forms',
+    'markdownx',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
+추가
+
+static_url 밑에
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = '/blog/'  추가
+
+__
+urls.py urlpattern에
+    path('markdownx/',include('markdownx.urls')),
+    path('accounts/',include('allauth.urls')), 추가
+
+마지막줄에 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 추가
+
+___
+
+
  
